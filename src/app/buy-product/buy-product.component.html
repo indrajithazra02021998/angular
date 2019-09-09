@@ -1,0 +1,69 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<h2 class="text-center" style="color: blue;">Product Images</h2><br>
+<div class="container-fluid"  >
+  <div class="row">
+   
+      <div class="col-md-2" *ngFor="let item of image | paginate: { itemsPerPage:5, currentPage: page }" >
+        
+            <img  class="card-img-top " src="http://localhost:4000/pic/{{item.image}}" alt="Lights" style="height: 90px;width: 90px;border-radius: 50%;" >
+          
+              <p>{{item.name}}
+                </p>
+                <div *ngIf=" item.isDiscount ; else name" >
+                    Price:<span><b>{{item.discount_price | currency:'INR':true  }}</b></span>
+                </div> 
+               <ng-template #name>
+                  Price:<span>{{item.price  | currency:'INR':true }}</span>
+               </ng-template>
+            <button class="btn btn-success " data-toggle="modal" data-target="#myModal" (click)="getimg(item.id,item.price,item.discount_price,item.isDiscount)" >
+              <i class="fa fa-shopping-cart" style="color: blue;"></i>Buy now</button>
+              <div id="mId" class="gg modal fade" id="myModal" role="dialog"  tabindex="-1">
+                <div class="modal-dialog">
+                  
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                       
+                    </div>
+                    <div class="modal-body">
+                     <h4 class="text-center"><mark>Buy Product</mark></h4>
+                      <div *ngIf="isTotal ;else total">
+                          <label style="color:blue">Cost per Product:</label> <span><b>{{ discount| currency:'INR':true  }} </b></span>
+                         
+                      </div>
+                      <ng-template #total>
+                          <label style="color:blue">Cost per Product :</label>  <span><b>{{image1[0].price  | currency:'INR':true }}</b></span>
+                         
+                       </ng-template>
+                       <br><br>
+                      <label style="color:blue"> No.of Product:</label><b>{{count}}</b>
+                       <br><br>
+                          <button (click)="countItem(item.id)" class="btn  btn-success" style="margin-left: 40px;
+                           border-radius:50%
+                          ">
+                            <i class="fa fa-plus" aria-hidden="true"></i></button>
+                      
+                          <button (click)="countLess()" class="btn btn-danger" style="margin-left:50px;  border-radius:50%">
+                          <i class="fa fa-minus" aria-hidden="true"></i>
+                      </button>
+                      
+                    </div>
+                    <div class="modal-footer">
+                
+                    <a [routerLink]="['/payment']" routerLinkActive="router-link-active"   class="btn btn-primary"(click)="buyNow()">proceed</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <p style="color: red;">{{item.offer}}</p> 
+               </div>
+              
+               <br>
+  <div class=" container-fluid ">
+  <pagination-controls (pageChange)="page = $event" style="float: right; bottom: 0; right: 0 ;position: fixed "></pagination-controls>
+</div>
+

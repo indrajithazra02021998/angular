@@ -1,0 +1,75 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="card shadow-lg p-3 mb-5  " style="height: auto;">
+    <div class="card-body " style="height: auto;  ">
+        <form [formGroup]="angForm" (ngSubmit)="onSubmit(first_name.value,last_name.value,email.value,address.value,mobile.value,country.value,state.value,city.value,genderControl.value)">
+     <label for="name">FirstName:</label>
+     <input type="text" class="form-control" formControlName="first_name" #first_name id="first_name"/>
+     <div *ngIf="angForm.controls['first_name'].invalid && (angForm.controls['first_name'].dirty || angForm.controls['first_name'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['first_name'].errors.required">
+           FirstName is required.
+      </div>
+    </div>
+     <label for="LastName">LastName:</label>
+     <input type="text" class="form-control " formControlName="last_name" #last_name id="last_name"
+         
+     > 
+     <div *ngIf="angForm.controls['last_name'].invalid && (angForm.controls['last_name'].dirty || angForm.controls['last_name'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['last_name'].errors.required">
+           LastName is required.
+      </div>
+    </div>
+     <label for="Email">Email id:</label>
+     <input type="text" class="form-control" formControlName="email" #email id="email" (keyup)="getEmail(email.value)"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/> 
+      <div *ngIf="angForm.controls['email'].invalid && (angForm.controls['email'].dirty || angForm.controls['email'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['email'].errors.required">
+           Valid Email is required.
+        </div>
+      </div>
+      <div class=" alert alert-danger" *ngIf="(emailExistant)">
+        Already taken
+      </div>
+     <label for="Address">Address</label>
+     <textarea class="form-control" rows="5" id="comment" formControlName="address" #address ></textarea>
+     <label for="mobile">mobile</label>
+     <input type="tel" class="form-control" formControlName="mobile" #mobile id="mobile" 
+     pattern="^\d{10}$"/>
+      <div *ngIf="angForm.controls['mobile'].invalid && (angForm.controls['mobile'].dirty || angForm.controls['mobile'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['mobile'].errors.required">
+          mobile is required.
+        </div>
+      </div>
+     <label for="country">country</label>
+     <select formControlName="country"  #country id="country" class="browser-default custom-select" (change)="getState(country.value)"  >
+          <option value=91>India </option>
+          <option value=92>Pakistan </option>
+          <option value=81>Japan</option>
+          <option value=47>Norway</option>
+      </select>
+     <label for="state">state</label>
+     <select formControlName="state"  #state id="state" class="browser-default custom-select" (change)="getCity(state.value)"  >
+         <option *ngFor="let item of state_list" value="{{item.id}}">{{item.name}}</option>
+      </select>  
+      <label for="city">city</label>
+      <select formControlName="city" #city id="city"   class="browser-default custom-select" >
+          <option selected>--select--</option>
+         <option *ngFor="let index of city_list"  value="{{index.name}}">{{index.name}}</option>
+      </select>
+      <label for="admin">Are you Admin?</label>
+      <div class="radio-inline">
+        <input id="gender" type="radio" name="genderControl" value="2" class="form-control" formControlName="genderControl" #genderControl/>
+         Yes
+        <input id="gender" type="radio"  name="genderControl" value="1" class="form-control"  formControlName="genderControl" #genderControl/>
+        <label class="radio-label"> No</label>
+      </div>
+      <br><br><br>
+     <button type="submit" [disabled]="!angForm.valid || (isDisable) " class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Create Profile</button> 
+     <button type="submit" [disabled]="isEnable || !angForm.valid " class="btn btn-primary " style="margin-left: 100px;" (click)="editUserInfo(first_name.value,last_name.value,email.value,address.value,mobile.value,country.value,state.value,city.value,genderControl.value)" >Update Profile</button>
+    </form>
+    </div>
+    
+    </div>
+    
+
+

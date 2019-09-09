@@ -1,0 +1,24 @@
+
+<html>
+
+<body >
+<div class="container">
+  <div class="alert alert-success alert-dismissible " *ngIf="ispayment" style=" height: auto;margin-left:200px; ">
+      <strong>Successfull Payment!</strong> Thank you for purchasing.
+    </div> 
+    <div class="row" *ngIf="isEnable">
+      <div class="col-md-4 card" style="margin-left:350px; ">
+          <h1 class="text-center" style="color: green">Payment Details</h1><br><br>
+            <form class="paymentForm" (ngSubmit)="buy(paymentForm.value)" [formGroup]="paymentForm">
+                    <input type="text" formControlName="name" placeholder=" Your Name" class="form-control" /><br><br>
+                    <input type="email" formControlName="email" placeholder="Email"  class="form-control" /><br><br>
+                    <div class="border-primary">
+                    <ngx-stripe-card  [options]="cardOptions" [elementsOptions]="elementsOptions" ></ngx-stripe-card></div><br><br>
+                  <button class="btn btn-success btn-large btn-block" >Pay {{parentData | currency:'INR':true }}</button>
+                  </form>
+      </div>
+    </div>
+
+    </div>
+  </body>
+    </html>

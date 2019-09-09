@@ -1,0 +1,104 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="container" >
+   
+<div class="row">
+    <div class="col-md-3" >
+        <br><br>
+         <div class="card"  style="height: 500px;  
+         overflow-y: scroll;position: fixed;
+         overflow-x: hidden;
+         flex-flow: column; border-radius: 10px 10px 0 0;bottom: 0;transition: .1s ease-out;">
+         <div *ngFor="let item of chatList" >
+           <div >
+           <button class="btn btn-dark btn-rounded" style="border-radius:50% ">
+            {{item.first_name.toString().substring(0,1).toUpperCase() +' '+item.last_name.toString().substring(0,1).toUpperCase()}}</button>
+           <a class="btn btn-light border" style="border-radius:19px;width:auto; " (click)="chatOpen(item.first_name,item.id)"> 
+            {{item.first_name +" " + item.last_name}}</a><span class="badge badge-success" *ngIf="isClick">New</span>
+           </div><br>
+         </div>
+         </div></div>
+       <div *ngIf="isOpen" style="margin-left: 100px; height: auto; width:700px;margin-top: 100px;">
+       
+          <div  *ngFor="let notify of notifications">
+              <div class="alert alert-success  alert-dismissible">
+                  <strong> You recieved </strong> <strong> {{notify.notifications}}</strong>  new messages.
+                </div>
+          </div>   
+      </div>
+    <div class="col-md-9 " *ngIf="this.chatopen" >
+        <div class="card" style="width: auto;height:500px;background-color: rgb(224, 236, 238);position: fixed">
+            <div 
+            class="card-body chat" style="height: auto ;position: relative;display: flex; overflow-y: scroll;
+          
+            flex-flow: column; border-radius: 10px 10px 0 0;bottom: 0;transition: .1s ease-out;">
+                <div style="color: rgb(17, 17, 17);position: fixed;background-color: rgb(233, 243, 245); width: 570px;">
+               
+                  <div ><i style="font-size: 30px;">{{this.username}}</i>
+                    <a class="btn btn-light"  style="border-radius:50% ;margin-left: 280px;margin-top: 0" >
+                      <i class="fa fa-video-camera" aria-hidden="true"  ></i> 
+                    </a>
+                    <a class="btn btn-light"  style="border-radius:50% ;margin-left: 30px;margin-top: 0">
+                      <i class="fa fa-phone" aria-hidden="true" ></i>
+                    </a>
+                   <!--
+<a class="btn btn-light"  style="border-radius:50% ;margin-left: 30px;margin-top: 0" (click)="showpopUp()"
+                       >
+                      <i  class="fa fa-ellipsis-v" aria-hidden="true" ></i></a>
+                   --> 
+                    <!--
+ <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i  class="fa fa-ellipsis-v" aria-hidden="true" ></i> 
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">Action</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                      </div
+                    -->
+  
+      <button (click)="popover()" id="popover1" class="btn btn-light"  
+       data-container="body" data-toggle="popover" data-placement="bottom"
+       data-content="<div >
+          <a  (click)='group()' >New Group</a><br>
+      <a href='www.google.com' >New Broadcast<a><br>
+      <a href='www.google.com' >Setting</a>
+       </div>" 
+       style="border-radius:50%"> 
+       <i  class="fa fa-ellipsis-v" aria-hidden="true" ></i>
+      </button>
+       </div>
+      </div><hr>
+                <div class="chat" *ngFor="let chat of adminChat">
+                    <div class="box sent" *ngIf="isSent && afterSent">{{chat.message}}
+                      <br>
+                    </div>
+                  </div>
+                  <div class="chat" *ngFor="let chat of chatArray" id="chatbox" [ngStyle]="{'margin-top': this.isRcv===true?'0px':'0px'}" >
+                    <div class="box sent" *ngIf="isSent">{{chat}}
+                      <br>{{this.time }}
+                    </div>
+                  </div>
+                  <div class="reply" *ngFor="let item of this.reply" style="height:100px;margin-top:20px; ">
+                      <div class="box received" *ngIf="isRecieve" >{{item.message}}</div>
+                  </div>
+               </div>
+               <div class="container">
+                 <textarea  mdInput  #textArea name="textArea" placeholder="Type a message here"
+                 id="textarea" class="chat-input" style="border-radius: 10px;
+                 width: 500px;margin-left: 10px; background: rgb(241, 228, 228); " 
+                  [(ngModel)] = "messageData" autofocus></textarea>
+                 <span>
+                  <a class="btn btn-primary"  style="border-radius:50% ;margin-left: 30px;margin-top: 0" (click)="sendMessage()">
+                  <i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+               </span>
+               </div>
+               <br>
+        </div>
+    </div>
+    
+</div>
+
+</div>

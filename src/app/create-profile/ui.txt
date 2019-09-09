@@ -1,0 +1,81 @@
+
+<div class="card">
+    <div class="card-body">
+      <form [formGroup]="angForm"  (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label class="col-md-4">FirstName</label>
+          <input type="text" class="form-control" formControlName="first_name" #first_name  [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }"/>
+        </div>
+        <div *ngIf="submitted && angForm['first_name'].errors" class="invalid-feedback">
+            <div *ngIf="angForm['first_name'].errors.required">First Name is required</div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4">LastName </label>
+          <input type="text" class="form-control" formControlName="last_name " #last_name  [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" />
+        </div>
+        <div *ngIf="submitted && angForm['last_name'].errors" class="invalid-feedback">
+            <div *ngIf="angForm['last_name'].errors.required">LastName is required</div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4">email</label>
+          <input type="text" class="form-control" formControlName="email" #email  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        </div>
+        <div *ngIf="submitted && angForm['email'].errors" class="invalid-feedback">
+            <div *ngIf="angForm['email'].errors.required">Email is required</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4">Address</label>
+            <input type="textarea" class="form-control" formControlName="address" #address  [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
+          </div>
+          <div *ngIf="submitted && angForm['address'].errors" class="invalid-feedback">
+              <div *ngIf="angForm['address'].errors.required">Address is required</div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">mobile</label>
+            <input type="text" class="form-control" formControlName="mobile" #mobile   [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"/>
+          </div>
+          <div *ngIf="submitted && angForm['mobile'].errors" class="invalid-feedback">
+              <div *ngIf="angForm['mobile'].errors.required">mobile is required</div>
+          </div>
+          <div class="form-group">
+            <select formControlName="country"  #country  class="browser-default custom-select" (onchange)="getState(country.value)"  [ngClass]="{ 'is-invalid': submitted && f.country .errors }">
+              <option selected value="0">--select--</option>
+                <option value=91>India </option>
+                <option value=92>Pakistan </option>
+                <option value=81>Japan</option>
+                <option value=47>Norway</option>
+            </select>
+          </div>
+         
+              <div *ngIf="submitted && angForm['country'].errors" class="invalid-feedback">
+                  <div *ngIf="angForm['country'].errors.required">Country is required</div>
+              </div>
+        
+          <div class="form-group">
+            <label class="col-md-4">State</label>
+            <select formControlName="state"  #state  class="browser-default custom-select"  [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+                <option selected>--select--</option>
+                 <option>westbengal</option>
+              </select>
+          </div>
+          <div *ngIf="submitted && angForm['state'].errors" class="invalid-feedback">
+              <div *ngIf="angForm['state'].errors.required">state is required</div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">city</label>
+            <select formControlName="city"  #city  class="browser-default custom-select"  [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+                <option selected>--select--</option>
+                  <option>kolkata</option>
+                   
+              </select>
+          </div>
+          <div *ngIf="submitted && angForm['city'].errors" class="invalid-feedback">
+              <div *ngIf="angForm['city'].errors.required">city is required</div>
+          </div>
+          <div class="form-group">
+              <button class="btn btn-primary">Create Profile</button>
+          </div>
+      </form>
+    </div>
+  </div>
+

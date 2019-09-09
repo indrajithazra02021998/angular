@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="card shadow-lg p-3 mb-5  " style="height: auto;">
+    <div class="card-body " style="height: auto;  ">
+        <form [formGroup]="angForm"  enctype="multipart/form-data" (ngSubmit)="onSubmit(ProductName.value,Price.value,ProductImage.value,DiscountPrice.value, start_date.value,end_date.value)">
+        
+     <label for="ProductName">ProductName:</label>
+     <input type="text" class="form-control " formControlName="ProductName" #ProductName id="ProductName"/>
+     <div *ngIf="angForm.controls['ProductName'].invalid && (angForm.controls['ProductName'].dirty || angForm.controls['ProductName'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['ProductName'].errors.required">
+        ProductName is required.
+      </div>
+    </div>
+     <label for="Price">Price:</label>
+     <input type="text" class="form-control" formControlName="Price" #Price id="Price"/> 
+      <div *ngIf="angForm.controls['Price'].invalid && (angForm.controls['Price'].dirty || angForm.controls['Price'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['Price'].errors.required">
+            Price  is required.
+        </div>
+        
+      </div><br><br>
+     <label for="ProductImage">Product Image:</label>
+     <input type="file" class="form-control" formControlName="ProductImage" 
+      #ProductImage name="ProductImage" accept="image/*" (change)="Imghandler($event.target.files)">
+     <img [src]="imgurl" style="width:250px;height: 200px;"/><br><br><button type="button"(click)="upload()">Upload </button>
+     <br><br>
+     <label for="DiscountPrice">DiscountPrice</label>
+     <input type="text" class="form-control" formControlName="DiscountPrice" #DiscountPrice id="DiscountPrice" />
+      <div *ngIf="angForm.controls['DiscountPrice'].invalid && (angForm.controls['DiscountPrice'].dirty || angForm.controls['DiscountPrice'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['DiscountPrice'].errors.required">
+            DiscountPrice is required.
+        </div>
+      </div>
+       
+       <label for="start_date">Discount Start Date</label>
+       <input type="date" class="form-control" formControlName="start_date" #start_date id="start_date"  > 
+       <div *ngIf="angForm.controls['start_date'].invalid && (angForm.controls['start_date'].dirty || angForm.controls['start_date'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['start_date'].errors.required">
+            start_date is required.
+        </div>
+      </div>
+      <label for="end_date">Discount End Date</label>
+       <input type="date" class="form-control" formControlName="end_date" #end_date id="start_date"  > 
+       <div *ngIf="angForm.controls['end_date'].invalid && (angForm.controls['end_date'].dirty || angForm.controls['end_date'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['end_date'].errors.required">
+            end_date is required.
+        </div>
+      </div><br><br>
+     <button type="submit"  [disabled]="!angForm.valid || (isDisable)" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Product</button> 
+     <button type="submit" [disabled]="isEnable || !angForm.valid " class="btn btn-primary " style="margin-left: 100px;"
+      (click)="editProduct(ProductName.value,Price.value,ProductImage.value,DiscountPrice.value ,start_date.value,end_date.value)" >Update Prodcut</button>
+    </form>
+    </div>
+    </div>
+    
+
+
+

@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<mat-card class="example-card embed-responsive" style="width:400px;height:auto; margin-left:300px;">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title  style="margin-left: 40px; color: green">Payment Deatils</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+     <form [formGroup]="payment"  >
+      <label for="card name"><b>CARD NUMBER</b> </label>
+       <div class="input-group mb-3">
+        <input type="text"pattern="^\d{16}$" class="form-control" formControlName="cardNumber" #cardNumber  >
+        <div *ngIf="payment.controls['cardNumber'].invalid && (payment.controls['cardNumber'].dirty || payment.controls['cardNumber'].touched)" class="alert alert-danger">
+                <div *ngIf="payment.controls['cardNumber'].errors.required">
+                    Card Number is required.
+                </div>
+              </div>
+        <div class="input-group-append">
+           
+            <span class="input-group-text" style="position: static"> <i class="fa fa-credit-card-alt" style="color: blue;" aria-hidden="true"></i></span>
+          </div>
+      </div>
+      <div class="row">
+        <div class="  col-md-6">
+            <div class="form-group">
+                <label for="expityMonth">
+                    <b>EXPIRY DATE</b></label>
+                 <div class="col-xs-3">
+                   <input type="text" class="form-control" formControlName="mm" #mm  placeholder="MM/YY"
+ pattern="(0?[1-9]|1[0-2])/\d{2}"
+                   >
+                   <div *ngIf="payment.controls['mm'].invalid && (payment.controls['mm'].dirty || payment.controls['mm'].touched)" class="alert alert-danger">
+                        <div *ngIf="payment.controls['mm'].errors.required">
+                            Enter valid expiry date
+                        </div>
+                      </div>
+                 </div>
+                        
+            </div>
+        </div>
+        <div class="col-xs-5 col-md-5 pull-right">
+            <div class="form-group">
+                <label for="cvCode">
+                    <b>CV CODE</b></label>
+                <input type="password" class="form-control" id="cvv" placeholder="CV" required  formControlName="cvv" #cvv  pattern="^\d{3}$"/>
+                <div *ngIf="payment.controls['cvv'].invalid && (payment.controls['cvv'].dirty || payment.controls['cvv'].touched)" class="alert alert-danger">
+                        <div *ngIf="payment.controls['cvv'].errors.required">
+                            Enter correct cvv number
+                        </div>
+                      </div>
+            </div>
+        </div>
+        <label for="holder" style="margin-left:20px; "><b>CARD HOLDER</b></label>
+        <div class="input-group md-3">
+            <input type="text" class="form-control" formControlName="holder" #holder >
+            <div *ngIf="payment.controls['holder'].invalid && (payment.controls['holder'].dirty || payment.controls['holder'].touched)" class="alert alert-danger">
+                    <div *ngIf="payment.controls['holder'].errors.required">
+                        Enter card holder name.
+                    </div>
+                  </div>
+        </div>
+       
+    </div>
+     </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button class="btn btn-success btn-large btn-block" [disabled]="!payment.valid" (click)="makePayment(cardNumber.value,mm.value,cvv.value,holder.value)">Pay</button>
+    </mat-card-actions>
+  </mat-card>
+
